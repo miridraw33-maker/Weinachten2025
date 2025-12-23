@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Rätsel 2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    }
+    input {
+      padding: 8px;
+      width: 80px;
+      text-align: center;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      margin-top: 8px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #4caf50;
+      color: #000;
+    }
+    .hidden { display: none; }
+    .rechnung {
+      background: #2a2a2a;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .ok { color: #6cff6c; }
+    .fail { color: #ff6666; }
+    .final {
+      font-size: 26px;
+      margin-top: 20px;
+    }
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: gold;
+      top: -10px;
+      animation: fall 2.5s linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body><div class="box" id="loginBox">
+  <h2>🔒 Rätsel 2</h2>
+  <p>Bitte Passwort eingeben</p>
+  <input type="password" id="password" placeholder="Passwort">
+  <br>
+  <button onclick="checkPassword()">Freigeben</button>
+  <p id="pwError" class="fail"></p>
+</div><div class="box hidden" id="contentBox">
+  <h2>🧩 Rätsel 2 🧩</h2>
+  <p>
+    Herzlichen Glückwunsch, ihr habt den ersten Teil des Rätsels geschafft.<br><br>
+    Um die Truhe zu öffnen, müsst ihr nun euer <strong>mathematisches Können</strong> beweisen.
+  </p>  <div class="rechnung">
+    <p><strong>1. Rechnung</strong><br>(48 − 6 · 5) / 3 − √16 - 10 : 5</p>
+    <input id="r1" placeholder="?">
+    <p id="f1"></p>
+  </div>  <div class="rechnung">
+    <p><strong>2. Rechnung</strong><br>(9² − 81) / 3 + √25 − 5</p>
+    <input id="r2" placeholder="?">
+    <p id="f2"></p>
+  </div>  <div class="rechnung">
+    <p><strong>3. Rechnung</strong><br>√64 − (12 / 3) - 8 / 4</p>
+    <input id="r3" placeholder="?">
+    <p id="f3"></p>
+  </div>  <p><em>Viel Glück 🍀</em></p>
+  <button onclick="checkResults()">Antworten prüfen</button>  <div id="final" class="final hidden">
+    <p>Ihr habt es geschafft</p>
+    <p>🔓 202 🔓</p>
+  </div>
+</div><script>
+  function checkPassword() {
+    const pw = document.getElementById('password').value;
+    if (pw === 'Püppi') {
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('contentBox').classList.remove('hidden');
+    } else {
+      document.getElementById('pwError').textContent = 'Falsches Passwort';
+    }
+  }
+
+  function checkResults() {
+    let correct = true;
+
+    if (document.getElementById('r1').value == '2') {
+      f1.textContent = '✔ richtig'; f1.className = 'ok';
+    } else { f1.textContent = '✖ falsch'; f1.className = 'fail'; correct = false; }
+
+    if (document.getElementById('r2').value == '0') {
+      f2.textContent = '✔ richtig'; f2.className = 'ok';
+    } else { f2.textContent = '✖ falsch'; f2.className = 'fail'; correct = false; }
+
+    if (document.getElementById('r3').value == '2') {
+      f3.textContent = '✔ richtig'; f3.className = 'ok';
+    } else { f3.textContent = '✖ falsch'; f3.className = 'fail'; correct = false; }
+
+    if (correct) {
+      document.getElementById('final').classList.remove('hidden');
+      launchConfetti();
+    }
+  }
+
+  function launchConfetti() {
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = ['gold','red','lime','cyan','magenta'][Math.floor(Math.random()*5)];
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 2500);
+    }
+  }
+</script></body>
+</html>
